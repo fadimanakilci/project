@@ -1,15 +1,19 @@
 package com.reinforcement.project.api.web.controllers;
 
-import com.reinforcement.project.entities.concretes.Brand;
 import com.reinforcement.project.services.abstracts.BrandService;
+import com.reinforcement.project.services.requests.CreateBrandRequest;
+import com.reinforcement.project.services.responses.GetAllBrandsResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+// Bu yokken çalışmıyor, bean oluşturma hatası veriyordu
+@EnableJpaRepositories
+//@EnableAutoConfiguration
+//@Controller
 @RequestMapping("/api/brands")
 public class BrandsController {
     private BrandService brandService;
@@ -21,7 +25,12 @@ public class BrandsController {
     }
 
     @GetMapping("/getall")
-    public List<Brand> getAll() {
+    public List<GetAllBrandsResponse> getAll() {
         return  brandService.getAll();
+    }
+
+    @PostMapping("/add")
+    public void add(@RequestBody() CreateBrandRequest createBrandRequest) {
+        this.brandService.add(createBrandRequest);
     }
 }
