@@ -1,4 +1,4 @@
-package com.reinforcement.project.services.requests;
+package com.reinforcement.project.services.dtos.requests;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
