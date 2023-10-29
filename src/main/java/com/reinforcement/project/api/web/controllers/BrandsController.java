@@ -5,6 +5,7 @@ import com.reinforcement.project.services.dtos.requests.CreateBrandRequest;
 import com.reinforcement.project.services.dtos.requests.UpdateBrandRequest;
 import com.reinforcement.project.services.dtos.responses.GetAllBrandsResponse;
 import com.reinforcement.project.services.dtos.responses.GetByIdBrandResponse;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -46,7 +47,7 @@ public class BrandsController {
 //    @PostMapping("/add")
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public void add(@RequestBody() CreateBrandRequest createBrandRequest) {
+    public void add(@RequestBody() @Valid CreateBrandRequest createBrandRequest) {
         this.brandService.add(createBrandRequest);
     }
 

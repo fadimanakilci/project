@@ -8,7 +8,9 @@ import com.reinforcement.project.services.dtos.requests.CreateBrandRequest;
 import com.reinforcement.project.services.dtos.requests.UpdateBrandRequest;
 import com.reinforcement.project.services.dtos.responses.GetAllBrandsResponse;
 import com.reinforcement.project.services.dtos.responses.GetByIdBrandResponse;
+import com.reinforcement.project.services.rules.BrandServicesRules;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,13 +22,14 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 //@Controller
 //@Component
-//@NoArgsConstructor
+@NoArgsConstructor
 public class BrandServiceImpl implements BrandService {
 //    @Autowired
 //    @MockBean(classes = BrandRepository.class)
 //    @Nonnull
-    private static BrandRepository brandRepository;
+    private BrandRepository brandRepository;
     private ModelMapperService modelMapperService;
+    private BrandServicesRules brandServicesRules;
 
 //    @AllArgsConstructor bu fonksiyonu varmış gibi çalıştırıyor
 //    public BrandServiceImpl(BrandRepository brandRepository) {
@@ -58,6 +61,7 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public void add(CreateBrandRequest createBrandRequest) {
+        this.brandServicesRules.checkIfBrandNameExists(createBrandRequest.getName());
 //        Brand brand = new Brand();
 //        brand.setName(createBrandRequest.getName());
         System.out.println("createBrandRequest = " + createBrandRequest.getName());
